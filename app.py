@@ -379,9 +379,11 @@ def add_vehicle():
         try:
             if request.method == 'POST':
                 vehicle_no=request.form['vehicle_no']
+                mobile_no=request.form['mobile_no']
+                vehicle_name=request.form['vehicle_name']
                 mycol = mydb["vehicle"]
-                mycol.insert_one({"vehicle_no":vehicle_no,"email":session['user_id'],"iot_no":0})
-            return render_template('user_index.html')
+                mycol.insert_one({"vehicle_no":vehicle_no,"email":session['user_id'],"iot_id":0,"mobile_no":mobile_no,"vehicle_name":vehicle_name})
+            return redirect(url_for('user_index'))
         except:
             return render_template('vehicle.html')
     else:
@@ -476,8 +478,10 @@ def assign(id):
 @app.route("/user_index")
 def user_index():
     if 'user_id' in session:
-        
-        return render_template('user_index.html')
+
+        mycol = mydb["vehicle"]
+        data=mycol.find({"email":session['user_id']})
+        return render_template('user_index.html',type="logout",type1="user_logout",data=data)
     else:
         return redirect(url_for('login'))
                 
