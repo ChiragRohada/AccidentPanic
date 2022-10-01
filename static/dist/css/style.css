@@ -25,6 +25,7 @@ a{
     /* border: 1px solid white; */
     padding: 25px;
     font-size: 22px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 a:hover{
     background: rgb(40, 34, 34);

@@ -73,8 +73,8 @@ def hello_world():
 
 
     if 'user_id' in session:
-        return render_template('index.html',type="logout",type1="user_logout") 
-    return render_template('index.html',type="login",type1="login") 
+        return render_template('index.html',type="Logout",type1="user_logout") 
+    return render_template('index.html',type="Login",type1="login") 
 
 
 
