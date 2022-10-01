@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Accident CHAD</title>
     <link rel="stylesheet" href="static/dist/css/style.css">
 </head>
+
 <body>
     <div>
         <nav>
@@ -23,12 +24,12 @@
     <main>
     <section>
         <div class="content1">
-            <h1 style="padding:10px 10px">Automatic Car Accident Detection and Alert System</h1>
+            <h1 style="padding:10px 10px"><bigtitle>Automatic Car Accident Detection and Alert System</bigtitle></h1>
             <p class="padd">Accident Panic Button uses a unique technology using Arduino and IoT to create a device which uses 
                 Accelerometer and GPS to get the location of the vehicle that is a potential victim of an <red>Accident</red>.</p>
         </div>    
-            <img src="http://www.sosmartapp.com/uploads/4/5/9/9/45991051/7675192.png?397" style="width: 50%;
-            height: 250px;" alt="img1">
+            <img src="{{url_for('static', filename='iot.png')}}" style="width: 1800px;
+            height: 400px;" alt="img1">
     </section>
     <hr style="width:90%; margin-left:60px"></hr>
 
@@ -36,7 +37,7 @@
         <div class="content2">
             <img src="http://www.sosmartapp.com/uploads/4/5/9/9/45991051/7656298.png?295" style="width: 350px; height: 400px;" alt="img2;">
             <div class="padd1">
-                <h2 style="font-size: 30px;">Manual or Automatic Mode</h2>
+                <h2 style="font-size: 30px;"><bigtitle>Manual or Automatic Mode</bigtitle></h2>
                 <br>
                 <!-- <br> -->
                 <p>SOSmart car accident service can be configured in manual mode or automatic mode.
@@ -56,7 +57,7 @@
 
     <section2>
         <div class="content3">
-            <h2 style="padding: 0px 10px;">Effective emergency notification</h2>
+            <h2 style="padding: 0px 10px;"><bigtitle>Effective emergency notification</bigtitle></h2>
             <br>
             <p style="padding:10px 10px">
                 No matter what your emergency contacts are doing, SOSmart will start a loud alarm which will call their atention . This alarm will only happen if your contacts have SOSmart installed
@@ -71,7 +72,7 @@
         <div class="content4">
             <img src="http://www.sosmartapp.com/uploads/4/5/9/9/45991051/1745376.png?360" alt="img4;">
             <div class="text">
-                <h2>Panic Button</h2>
+                <h2><bigtitle>Panic Button</bigtitle></h2>
                 <br>
                 <p>
                     For any other emergency SOSmart has a panic button which when pressed, sends an emergency notification with your location to emergency contacts. and associated institutions.
@@ -83,7 +84,7 @@
 
     <section4>
         <div class="content5">
-            <h2>Algorithm based on real car crash data</h2>
+            <h2><bigtitle>Algorithm based on real car crash data</bigtitle></h2>
             <br>
             <p>
                 Our professional and sofisticated algorithm has been designed using real car crash data from the National Highway Traffic Safety Administration. Using this data our algorithm can differentiate when you drop your phone, brake too hard or had a minor accident avoiding false alarms
@@ -96,7 +97,7 @@
         <div class="content6">
         <img src="http://www.sosmartapp.com/uploads/4/5/9/9/45991051/7994728.png?455" alt="img5">
         <div class="text">
-            <h2>Find Nearby Hospitals</h2>
+            <h2><bigtitle>Find Nearby Hospitals</bigtitle></h2>
             <br>
             <p>
                 In emergencies receiving medical atention on time can make the difference. SOSmart no matter where in the world you are, will show you a list of nearby hospitals and show you directions to get there as quick as possible
@@ -107,7 +108,7 @@
     </section5>
 
     <section6>
-        <h2 style="text-align: center; font-size: 40px; word-spacing: 3px;">Real time monitoring platform for institutions</h2>
+        <h2 style="text-align: center; font-size: 40px; word-spacing: 3px;"><bigtitle>Real time monitoring platform for institutions</bigtitle></h2>
         <br>
         <br>
         <p style="font-size:30px; word-spacing:3px; padding-left: 60px;">SOSmart offers a web platform which allows institutions to monitor emergencies 24 hours a day, 7 days a week  anywhere in the world.</p>
@@ -120,7 +121,20 @@
             Offer your clients and employees safety and security using our web platform at  very convenient prices. For further information please contact us.
         </p>
     </section6>
-    
+
 </main>
 </body>
+
+<script>
+    const [red, green, blue] = [70, 100, 225]
+    const body = document.querySelector('body')
+
+    window.addEventListener('scroll', () => 
+    {
+        const y = 1 + (window.scrollY || window.pageYOffset) / 1000
+        const [r, g, b] = [red/y, green/y, blue/y].map(Math.round)
+        body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
+    })
+</script>
+
 </html>
