@@ -10,6 +10,16 @@ from flask import request
 from flask import abort, redirect, url_for,session
 import os
 import numpy as np
+import io
+import base64
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+from matplotlib.figure import Figure
+import pygal      
+from werkzeug.utils import secure_filename
+from werkzeug.datastructures import  FileStorage
 
 
 
@@ -28,6 +38,8 @@ def closest(lst, K):
 
 app = Flask(__name__)
 app.secret_key=os.urandom(24)
+app.config['UPLOAD_FOLDER']='../static/img'
+
 
 if __name__ == '__main__':
     app.run(host='192.168.0.1', port=5000)
@@ -170,9 +182,11 @@ def admin_login():
     if request.method == 'POST':
       email=request.form['email']
       password=request.form['password']
-      lat=request.form['lat']
-      log=request.form['log']
-      print(log)
+      # lat=request.form['lat']
+      # log=request.form['log']
+      # print(log)
+      lat='19';
+      log='18';
 
       if(float(log)):
         try:
@@ -379,10 +393,17 @@ def add_vehicle():
         try:
             if request.method == 'POST':
                 vehicle_no=request.form['vehicle_no']
+                first_name=request.form['first_name']
                 mobile_no=request.form['mobile_no']
                 vehicle_name=request.form['vehicle_name']
+                
+                f = request.files['file']
+                print(f)
+                filename = secure_filename(f.filename)
+                f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename ))
+
                 mycol = mydb["vehicle"]
-                mycol.insert_one({"vehicle_no":vehicle_no,"email":session['user_id'],"iot_id":0,"mobile_no":mobile_no,"vehicle_name":vehicle_name})
+                mycol.insert_one({"vehicle_no":vehicle_no,"email":session['user_id'],"iot_id":None,"mobile_no":mobile_no,"vehicle_name":vehicle_name,"first_name":first_name})
             return redirect(url_for('user_index'))
         except:
             return render_template('vehicle.html')
@@ -511,3 +532,41 @@ def accident():
   x=mycol.find({})
 
   return render_template('accident.html',accident=x)
+
+@app.route("/data")
+def data():
+  mycol = mydb['numbers']
+  y=mycol.find()
+  print(y)
+  # df = pd.DataFrame(y)
+  # print(df)
+  # x=df.plot.barh(x="city", y="accident",linewidth = 8.0, figsize=(8,5))
+  # x.figure.savefig('static/file.svg')  
+  bar_chart = pygal.Bar()
+  pie_chart= pygal.Pie()
+  # bar_chart.title = 'Browser usage in February 2012 (in %)'
+  # bar_chart.add('IE', 19.5)
+  # bar_chart.add('Firefox', 36.6)
+  # bar_chart.add('Chrome', 36.3)
+  # bar_chart.add('Safari', 4.5)
+  # bar_chart.add('Opera', 2.3)
+  # bar_chart.render()
+  thislist = []
+  for i in y:
+    thislist.append(i['accident'])
+    bar_chart.add(i['city'], i['accident'])
+    pie_chart.add(i['city'], i['accident'])
+    
+
+  # bar_chart.add('Fibonacci','hello', thislist)  # Add some values
+  bar_chart.render_to_file('static/bar_chart.svg')
+  pie_chart.render_to_file('static/pie_chart.svg')
+  return render_template('data.html')
+
+
+@app.route("/user_data/<id>")
+def user_data(id):
+  mycol = mydb['vehicle']
+  y=mycol.find({'vehicle_no':id},{'_id':0})
+  
+  return y[0];

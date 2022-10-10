@@ -30,7 +30,7 @@
     </div>
 </div>
 <div class="" id="data">
-    <div class="mt-20 md:px-20 ">
+    <div class="mt-20 mb-10 md:px-20 ">
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -85,9 +85,9 @@
         
         </div>
     </div>
-        <div class="fixed top-40 left-72 w-2/5 hidden " id="add_vehicle">
+        <div class=" hidden " id="add_vehicle">
                 
-            <form method="post" action="/vehicle">
+            <form method="post" action="/vehicle" enctype = "multipart/form-data">
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                     <div>
                         <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">First name</label>
@@ -115,6 +115,9 @@
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email address</label>
                     <input name="email" type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" required="">
                 </div> 
+                <div class="mb-6">
+                    <input name="file" type="file" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Car Photo" required="">
+                </div> 
                
                 <div class="flex items-start mb-6">
                     <div class="flex items-center h-5">
@@ -122,7 +125,7 @@
                     </div>
                     <label for="remember" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400">I agree with the <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a>.</label>
                 </div>
-                <div class="flex gap-5">
+                <div class="flex gap-5 ">
                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
                 <button type="submit" onclick="not_add_vehicle()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-800 ">Cancel</button>
             </div>
@@ -134,9 +137,9 @@
 
 const add_vehicle=()=>
 {
-   console.log( document.getElementById('add_vehicle').className='fixed top-40 left-72 w-2/5')
-   console.log( document.getElementById('bt1').className='opacity-5')
-   console.log( document.getElementById('data').className='opacity-5')
+   console.log( document.getElementById('add_vehicle').className='grid justify-items-center  my-20')
+   console.log( document.getElementById('bt1').className=' hidden')
+   console.log( document.getElementById('data').className=' hidden')
 
 
 }
