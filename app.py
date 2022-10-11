@@ -20,6 +20,7 @@ from matplotlib.figure import Figure
 import pygal      
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
+from flask_bcrypt import Bcrypt
 
 
 
@@ -39,6 +40,7 @@ def closest(lst, K):
 app = Flask(__name__)
 app.secret_key=os.urandom(24)
 app.config['UPLOAD_FOLDER']='../static/img'
+bcrypt = Bcrypt(app)
 
 
 if __name__ == '__main__':
@@ -105,8 +107,9 @@ def login():
 
       try:
           mycol = mydb['Users']
-          x=mycol.find_one({"email":email,"password":password})
-          if(x):
+          x=mycol.find_one({"email":email})
+          
+          if(bcrypt.check_password_hash(x['password'], password)):
             
             session['user_id']=x["email"]
             return redirect(url_for('hello_world'))
@@ -237,6 +240,7 @@ def sign_up():
         user_name=request.form['name']
         user_password=request.form['password']
         user_email=request.form['email']
+        user_password = bcrypt.generate_password_hash(user_password)
       
 
         
